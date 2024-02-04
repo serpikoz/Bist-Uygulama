@@ -3,6 +3,7 @@ import { Stack, useLocalSearchParams } from "expo-router";
 import top5 from "@/assets/data/top5.json";
 import React from "react";
 import StockListItem from "../components/StockListItem";
+import Graph from "../components/Graph";
 
 const HisseDetay = () => {
   const { symbol } = useLocalSearchParams();
@@ -19,6 +20,7 @@ const HisseDetay = () => {
         options={{ title: hisse.symbol, headerBackTitle: "Hisseler" }}
       />
       <StockListItem hisse={hisse} />
+      <Graph />
     </View>
   );
 };
