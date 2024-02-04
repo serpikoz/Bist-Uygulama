@@ -5,7 +5,7 @@ import { Pressable } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
 import Colors from "@/src/constants/Colors";
-import { useColorScheme } from "@/src/components/useColorScheme.web";
+import { useColorScheme } from "@/src/components/useColorScheme";
 import { useClientOnlyValue } from "@/src/components/useClientOnlyValue";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
@@ -33,7 +33,7 @@ export default function TabLayout() {
         options={{
           title: "Hisseler",
           tabBarIcon: ({ color }) => (
-            <AntDesign name="linechart" size={24} color="black" />
+            <AntDesign name="linechart" size={24} color={color} />
           ),
           headerRight: () => (
             <Link href="/modal" asChild>
