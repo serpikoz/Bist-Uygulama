@@ -2,6 +2,7 @@ import React from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Link, Tabs } from "expo-router";
 import { Pressable } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
 
 import Colors from "@/src/constants/Colors";
 import { useColorScheme } from "@/src/components/useColorScheme.web";
@@ -30,8 +31,10 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Tab One",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: "Hisseler",
+          tabBarIcon: ({ color }) => (
+            <AntDesign name="linechart" size={24} color="black" />
+          ),
           headerRight: () => (
             <Link href="/modal" asChild>
               <Pressable>
