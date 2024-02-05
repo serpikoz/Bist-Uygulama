@@ -1,0 +1,4 @@
+{
+  "endpoint": "api/historical-lynx",
+  "root": "api/curl"
+}
