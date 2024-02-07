@@ -35,7 +35,7 @@ export default function StockListItem({ hisse }: StockListItem) {
           <MonoText>{Number.parseFloat(hisse.close).toFixed(1)} ₺</MonoText>
           <MonoText style={{ color: change > 0 ? "green" : "red" }}>
             {change > 0 ? "+" : ""}
-            {change.toFixed(1)}
+            {change.toFixed(1)}%
           </MonoText>
         </View>
       </Pressable>

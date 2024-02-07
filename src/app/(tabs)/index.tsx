@@ -1,18 +1,40 @@
-import { StyleSheet, FlatList } from "react-native";
-
+import { StyleSheet, FlatList, ActivityIndicator } from "react-native";
 import { Text, View } from "@/src/components/Themed";
 import { Stack } from "expo-router";
-
-import top5 from "@/assets/data/top5.json";
 import StockListItem from "@/src/components/StockListItem";
+import { useQuery, gql } from "@apollo/client";
+
+const query = gql`
+  query MyQuery($symbol: String) {
+    quotes(symbol: $symbol) {
+      value {
+        name
+        symbol
+        percent_change
+        close
+      }
+    }
+  }
+`;
 
 export default function TabOneScreen() {
-  const hisse = Object.values(top5);
+  const { data, loading, error } = useQuery(query, {
+    variables: { symbol: "THYAO,IBM,MSFT,GE,GM,TSLA" },
+  });
+
+  if (loading) {
+    return <ActivityIndicator />;
+  }
+  if (error) {
+    return <Text>Hata oluştu!</Text>;
+  }
+  const hisseler = data.quotes.map((q) => q.value);
+
   return (
     <View style={styles.container}>
       <Stack.Screen options={{ title: "Hisseler" }} />
       <FlatList
-        data={hisse}
+        data={hisseler}
         renderItem={({ item }) => <StockListItem hisse={item} />}
         contentContainerStyle={{ gap: 20, padding: 10 }}
       />
