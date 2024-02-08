@@ -47,7 +47,7 @@ const Graph = ({ symbol }: { symbol: string }) => {
   return (
     <View>
       <MonoText style={{ fontSize: 20, fontWeight: "bold", color: "#017560" }}>
-        ${selectedPoint?.value.toFixed(1)}
+        {selectedPoint?.value.toFixed(1)}₺
       </MonoText>
       <Text style={{ color: "gray" }}>
         {selectedPoint?.date.toDateString()}

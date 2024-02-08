@@ -4,6 +4,17 @@ import Colors from "../constants/Colors";
 import { AntDesign } from "@expo/vector-icons";
 import { MonoText } from "./StyledText";
 import { Link } from "expo-router";
+import { useMutation, gql } from "@apollo/client";
+
+const mutation = gql`
+  mutation MyMutation($symbol: String!, $user_id: String!) {
+    insertFavorites(symbol: $symbol, user_id: $user_id) {
+      id
+      symbol
+      user_id
+    }
+  }
+`;
 
 type Hisse = {
   name: string;
@@ -17,7 +28,18 @@ type StockListItem = {
 };
 
 export default function StockListItem({ hisse }: StockListItem) {
+  const [runMutation] = useMutation(mutation, {
+    variables: {
+      user_id: "vadim",
+      symbol: hisse.symbol,
+    },
+  });
+
   const change = Number.parseFloat(hisse.percent_change);
+
+  const onFavoritesPress = () => {
+    runMutation();
+  };
 
   return (
     <Link href={`/${hisse.symbol}`} asChild>
@@ -25,7 +47,13 @@ export default function StockListItem({ hisse }: StockListItem) {
         {/* {Left Container} */}
         <View style={{ flex: 1, gap: 5 }}>
           <Text style={styles.symbol}>
-            {hisse.symbol} <AntDesign name="staro" size={18} color="gray" />
+            {hisse.symbol}{" "}
+            <AntDesign
+              onPress={onFavoritesPress}
+              name="staro"
+              size={18}
+              color="gray"
+            />
           </Text>
           <Text style={{ color: "gray" }}>{hisse.name}</Text>
         </View>
