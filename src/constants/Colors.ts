@@ -23,7 +23,7 @@ type ColorsType = {
 };
 
 const tintColorLight = "#0E69FF";
-const tintColorDark = "#000";
+const tintColorDark = "#010B13";
 
 const Colors: ColorsType = {
   light: {
@@ -35,7 +35,7 @@ const Colors: ColorsType = {
   },
   dark: {
     text: "#fff",
-    background: "#000",
+    background: "#010B13",
     tint: tintColorDark,
     tabIconDefault: "#ccc",
     tabIconSelected: tintColorDark,
