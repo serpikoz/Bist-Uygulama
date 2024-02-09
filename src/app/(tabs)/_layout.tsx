@@ -3,6 +3,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Link, Tabs } from "expo-router";
 import { Pressable } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 
 import Colors from "@/src/constants/Colors";
 import { useColorScheme } from "@/src/components/useColorScheme";
@@ -33,7 +34,7 @@ export default function TabLayout() {
         options={{
           title: "Hisseler",
           tabBarIcon: ({ color }) => (
-            <AntDesign name="linechart" size={24} color={color} />
+            <TabBarIcon name="bar-chart" color={color} />
           ),
           headerRight: () => (
             <Link href="/modal" asChild>
@@ -54,8 +55,15 @@ export default function TabLayout() {
       <Tabs.Screen
         name="two"
         options={{
-          title: "Tab Two",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: "Favoriler",
+          tabBarIcon: ({ color }) => <TabBarIcon name="star" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="three"
+        options={{
+          title: "Portfolio",
+          tabBarIcon: ({ color }) => <TabBarIcon name="star-o" color={color} />,
         }}
       />
     </Tabs>
