@@ -1,5 +1,5 @@
 import { Text, View } from "./Themed";
-import { StyleSheet, Pressable } from "react-native";
+import { StyleSheet, Pressable, Alert } from "react-native";
 import Colors from "../constants/Colors";
 import { AntDesign } from "@expo/vector-icons";
 import { MonoText } from "./StyledText";
@@ -63,7 +63,7 @@ export default function StockListItem({ hisse }: StockListItem) {
     const isAlreadyFavorite = await isFavorite(hisse.symbol, "vadim");
 
     if (isAlreadyFavorite) {
-      console.log("Bu hisse zaten favorilere eklenmiş.");
+      Alert.alert("Zaten favoriye eklenmiş!");
     } else {
       console.log("Yeni eklendi");
       runMutation();
