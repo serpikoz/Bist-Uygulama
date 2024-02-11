@@ -5,6 +5,15 @@ import { AntDesign } from "@expo/vector-icons";
 import { MonoText } from "./StyledText";
 import { Link } from "expo-router";
 import { useMutation, gql } from "@apollo/client";
+import client from "../apollo/client";
+
+const CHECK_FAVORITE_QUERY = gql`
+  query CheckFavorite($symbol: String!, $user_id: String!) {
+    favoritesByUser_idAndSymbol(user_id: $user_id, symbol: $symbol) {
+      id
+    }
+  }
+`;
 
 const mutation = gql`
   mutation MyMutation($symbol: String!, $user_id: String!) {
@@ -27,6 +36,19 @@ type StockListItem = {
   hisse: Hisse;
 };
 
+const isFavorite = async (symbol: string, userId: string) => {
+  try {
+    const { data } = await client.query({
+      query: CHECK_FAVORITE_QUERY,
+      variables: { symbol, user_id: userId },
+    });
+    return data.favoritesByUser_idAndSymbol.length > 0;
+  } catch (error) {
+    console.error("Favori kontrolü yapılırken bir hata oluştu:", error);
+    return false;
+  }
+};
+
 export default function StockListItem({ hisse }: StockListItem) {
   const [runMutation] = useMutation(mutation, {
     variables: {
@@ -37,8 +59,15 @@ export default function StockListItem({ hisse }: StockListItem) {
 
   const change = Number.parseFloat(hisse.percent_change);
 
-  const onFavoritesPress = () => {
-    runMutation();
+  const onFavoritesPress = async () => {
+    const isAlreadyFavorite = await isFavorite(hisse.symbol, "vadim");
+
+    if (isAlreadyFavorite) {
+      console.log("Bu hisse zaten favorilere eklenmiş.");
+    } else {
+      console.log("Yeni eklendi");
+      runMutation();
+    }
   };
 
   return (

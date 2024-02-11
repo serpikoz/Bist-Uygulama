@@ -26,7 +26,16 @@ type Quote {
   previous_close: Float
   symbol: String
   timestamp: Int
-  volume: Int
+  volume: Date
+
+  favorite: [Favorites]
+    @materializer(
+      query: "favoritesByUser_idAndSymbol"
+      arguments: [
+        { name: "symbol", field: "symbol" }
+        { name: "user_id", field: "symbol" }
+      ]
+    )
 }
 
 type Quotes {
