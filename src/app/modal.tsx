@@ -39,7 +39,7 @@ export default function ModalScreen() {
             geliştirebilirsiniz
           </Text>
           <Text style={styles.two}>
-            <MonoText style={{ fontWeight: "bold" }}>👍 Risk Yok: </MonoText>
+            <MonoText style={{ fontWeight: "bold" }}>👍Risk Yok: </MonoText>
             Uygulamamızda, gerçek para kullanmadan sanal bir borsa deneyimi
             yaşarsınız.Bu sayede, finansal kararlar alırken risk almadan deneyim
             kazanabilirsiniz.
@@ -85,6 +85,7 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     marginHorizontal: 3,
+    marginVertical: -25,
   },
 
   headerfirst: {
