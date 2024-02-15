@@ -13,7 +13,7 @@ export default function TabOneScreen() {
       <Image style={styles.image} source={image} />
       <Text style={styles.header1}>Borsa Guru'ya Hoşgeldiniz</Text>
       <Text style={styles.header2}>
-        Size tanımlanmış olan 1.000 TL ile yatırımınıza başlayın
+        Size tanımlanmış olan 1000 TL ile yatırımınıza başlayın
       </Text>
     </View>
   );
