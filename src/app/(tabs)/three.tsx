@@ -76,19 +76,26 @@ export default function TabThreeScreen() {
   return (
     <View style={styles.container}>
       <Stack.Screen options={{ title: "Portfolyom" }} />
-      <View style={styles.imageView}>
-        <Image style={styles.image} source={image} />
-      </View>
-
-      <View style={styles.balanceContainer}>
-        <Text style={styles.label}>Bakiyem</Text>
-        <Text style={styles.balance}>200.75 ₺</Text>
-      </View>
 
       <FlatList
+        style={{ width: "100%" }}
         data={portfolioHisseler}
         renderItem={({ item }) => (
           <PortfolioHisseler portfolioHisseler={item} />
+        )}
+        showsVerticalScrollIndicator={false}
+        ListHeaderComponentStyle={{ alignItems: "center" }}
+        ListHeaderComponent={() => (
+          <>
+            <View style={styles.imageView}>
+              <Image style={styles.image} source={image} />
+            </View>
+
+            <View style={styles.balanceContainer}>
+              <Text style={styles.label}>Bakiyem</Text>
+              <Text style={styles.balance}>200.75 ₺</Text>
+            </View>
+          </>
         )}
       />
     </View>
@@ -98,7 +105,7 @@ export default function TabThreeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: 5,
   },
   balanceContainer: {
     alignItems: "center",
