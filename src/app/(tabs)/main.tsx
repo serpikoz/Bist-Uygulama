@@ -9,18 +9,22 @@ import {
 } from "react-native";
 import { Text, View } from "@/src/components/Themed";
 import { Stack } from "expo-router";
+import { useRef, useState } from "react";
 
 import {
   BarChart,
   LineChart,
   PieChart,
   PopulationPyramid,
+  chartTypes,
 } from "react-native-gifted-charts";
 import { VictoryPie } from "victory";
 import { COLORS, SIZES, FONTS } from "@/src/constants";
 import Colors from "@/src/constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
 import iconSet from "@expo/vector-icons/build/FontAwesome5";
+import React from "react";
+import Animated from "react-native-reanimated";
 
 const image = require("../../../assets/images/Saly-1.png");
 
@@ -30,8 +34,15 @@ function TabBarIcon(props: {
 }) {
   return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
 }
+const data = [
+  { name: "Slice 1", value: 30, color: "blue" },
+  { name: "Slice 2", value: 70, color: "green" },
+];
 
 export default function TabOneScreen() {
+  const [viewMode, setViewMode] = React.useState("chart");
+  const [selectedCategory, setSelectedCategory] = React.useState(null);
+  const [showMoreToggle, setShowMoreToggle] = React.useState(false);
   function Header() {
     return (
       <View
@@ -59,6 +70,7 @@ export default function TabOneScreen() {
               height: 50,
               width: 50,
               borderRadius: 20,
+
               justifyContent: "center",
               alignItems: "center",
             }}
@@ -99,35 +111,29 @@ export default function TabOneScreen() {
         {/* Buttons */}
 
         <View style={{ flexDirection: "row" }}>
-          <Pressable>
+          <TouchableOpacity onPress={() => setViewMode("list")}>
             <View
               style={{
                 alignItems: "center",
                 justifyContent: "center",
-                backgroundColor: COLORS.secondary,
-                height: 40,
-                width: 40,
-                borderRadius: 25,
+
+                height: 45,
+                width: 45,
+                borderRadius: 20,
               }}
             >
-              <TabBarIcon name="bar-chart" color="black" />
+              <TabBarIcon name="bars" color="#95A9B8" />
             </View>
-          </Pressable>
-          <Pressable>
-            <View
-              style={{
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundColor: COLORS.secondary,
-                height: 40,
-                width: 40,
-                borderRadius: 25,
-              }}
-            >
-              <TabBarIcon name="bars" color="black" />
-            </View>
-          </Pressable>
+          </TouchableOpacity>
         </View>
+      </View>
+    );
+  }
+
+  function Chart() {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <PieChart data={data} innerRadius={20} />
       </View>
     );
   }
@@ -142,6 +148,7 @@ export default function TabOneScreen() {
       </Text> */}
       <Header />
       <CategoryHeaderSection />
+      <Chart />
     </View>
   );
 }
