@@ -1,4 +1,12 @@
-import { StyleSheet, FlatList, ActivityIndicator, Image } from "react-native";
+import {
+  StyleSheet,
+  FlatList,
+  ActivityIndicator,
+  Image,
+  Touchable,
+  TouchableOpacity,
+  Pressable,
+} from "react-native";
 import { Text, View } from "@/src/components/Themed";
 import { Stack } from "expo-router";
 
@@ -12,6 +20,7 @@ import { VictoryPie } from "victory";
 import { COLORS, SIZES, FONTS } from "@/src/constants";
 import Colors from "@/src/constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
+import iconSet from "@expo/vector-icons/build/FontAwesome5";
 
 const image = require("../../../assets/images/Saly-1.png");
 
@@ -33,7 +42,7 @@ export default function TabOneScreen() {
       >
         <View>
           <Text style={{ color: "white", fontSize: 26 }}>Güncel Durum</Text>
-          <Text style={{ color: COLORS.darkgray, fontSize: 18, marginTop: 10 }}>
+          <Text style={{ color: COLORS.darkgray, fontSize: 16, marginTop: 5 }}>
             Özet
           </Text>
         </View>
@@ -47,22 +56,14 @@ export default function TabOneScreen() {
         >
           <View
             style={{
-              backgroundColor: COLORS.lightGray,
               height: 50,
               width: 50,
-              borderRadius: 25,
+              borderRadius: 20,
               justifyContent: "center",
               alignItems: "center",
             }}
           >
-            <View
-              style={{
-                width: 20,
-                height: 20,
-              }}
-            >
-              <TabBarIcon name="calendar" color="gray" />
-            </View>
+            <TabBarIcon name="calendar-o" color="gray" />
           </View>
 
           <View style={{ marginLeft: SIZES.padding }}>
@@ -71,6 +72,61 @@ export default function TabOneScreen() {
             </Text>
             <Text style={{ color: COLORS.darkgray }}>Geçen Aydan %50 Kar </Text>
           </View>
+        </View>
+      </View>
+    );
+  }
+
+  function CategoryHeaderSection() {
+    return (
+      <View
+        style={{
+          flexDirection: "row",
+          padding: SIZES.padding,
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        {/* Title */}
+
+        <View>
+          <Text style={{ color: COLORS.lightBlue, fontSize: 18 }}>
+            HİSSELER
+          </Text>
+          <Text style={{ color: COLORS.lightGray, fontSize: 14 }}>Toplam</Text>
+        </View>
+
+        {/* Buttons */}
+
+        <View style={{ flexDirection: "row" }}>
+          <Pressable>
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: COLORS.secondary,
+                height: 40,
+                width: 40,
+                borderRadius: 25,
+              }}
+            >
+              <TabBarIcon name="bar-chart" color="black" />
+            </View>
+          </Pressable>
+          <Pressable>
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: COLORS.secondary,
+                height: 40,
+                width: 40,
+                borderRadius: 25,
+              }}
+            >
+              <TabBarIcon name="bars" color="black" />
+            </View>
+          </Pressable>
         </View>
       </View>
     );
@@ -85,6 +141,7 @@ export default function TabOneScreen() {
         Size tanımlanmış olan 1000 TL ile yatırımınıza başlayın
       </Text> */}
       <Header />
+      <CategoryHeaderSection />
     </View>
   );
 }
