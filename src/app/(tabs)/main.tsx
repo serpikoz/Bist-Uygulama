@@ -6,10 +6,11 @@ import {
   Touchable,
   TouchableOpacity,
   Pressable,
+  PixelRatio,
 } from "react-native";
 import { Text, View } from "@/src/components/Themed";
 import { Stack } from "expo-router";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 import {
   BarChart,
@@ -24,9 +25,15 @@ import Colors from "@/src/constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
 import iconSet from "@expo/vector-icons/build/FontAwesome5";
 import React from "react";
-import Animated from "react-native-reanimated";
+import Animated, { Easing } from "react-native-reanimated";
+import { DonutChart } from "../DonutCharts";
+import { runTiming, useFont, useValue } from "@shopify/react-native-skia";
+import { MonoText } from "@/src/components/StyledText";
 
 const image = require("../../../assets/images/Saly-1.png");
+
+const RADIUS = PixelRatio.roundToNearestPixel(130);
+const STROKE_WIDTH = 12;
 
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>["name"];
@@ -39,7 +46,7 @@ const data = [
   { name: "Slice 2", value: 70, color: "green" },
 ];
 
-export default function TabOneScreen() {
+export default function TabOneScreen({ navigation }) {
   const [viewMode, setViewMode] = React.useState("chart");
   const [selectedCategory, setSelectedCategory] = React.useState(null);
   const [showMoreToggle, setShowMoreToggle] = React.useState(false);
@@ -131,9 +138,65 @@ export default function TabOneScreen() {
   }
 
   function Chart() {
+    const percentageComplete = 1;
+    const animationState = useValue(0);
+    const font = useFont(require("../../../assets/fonts/Roboto-Light.ttf"), 60);
+    const smallerFont = useFont(
+      require("../../../assets/fonts/Roboto-Light.ttf"),
+      25
+    );
+    const [animationKey, setAnimationKey] = useState(0); // State'i tanımla
+
+    useEffect(() => {
+      const animationChart = () => {
+        animationState.current = 0;
+        runTiming(animationState, 1, {
+          duration: 2700,
+          easing: Easing.inOut(Easing.cubic),
+        });
+      };
+
+      animationChart();
+
+      return () => {
+        animationState.current = 1;
+      };
+    }, [navigation]);
+
+    const restartAnimation = () => {
+      setAnimationKey(animationKey + 1);
+    };
+
+    if (!font || !smallerFont) {
+      return <View />;
+    }
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <PieChart data={data} innerRadius={20} />
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <View style={styles.donutChartContainer}>
+          <DonutChart
+            key={animationKey} // Key'i state ile değiştir
+            radius={RADIUS}
+            strokeWidth={STROKE_WIDTH}
+            percentageComplete={animationState}
+            targetPercentage={percentageComplete}
+            font={font}
+            smallerFont={smallerFont}
+          />
+        </View>
+        <View
+          style={{
+            position: "absolute",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Text style={{ marginBottom: 2, fontSize: 24, fontWeight: "bold" }}>
+            TOPLAM KAZANÇ
+          </Text>
+          <Text style={{ marginTop: 2, fontSize: 28, fontWeight: "bold" }}>
+            <MonoText>75521</MonoText> Ø
+          </Text>
+        </View>
       </View>
     );
   }
@@ -171,5 +234,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: "center",
     color: "#707070",
+  },
+  donutChartContainer: {
+    height: RADIUS * 2,
+    width: RADIUS * 2,
   },
 });
