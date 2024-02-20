@@ -26,9 +26,11 @@ import { FontAwesome } from "@expo/vector-icons";
 import iconSet from "@expo/vector-icons/build/FontAwesome5";
 import React from "react";
 import Animated, { Easing } from "react-native-reanimated";
-import { DonutChart } from "../DonutCharts";
+import { DonutChart } from "../Charts/DonutCharts";
 import { runTiming, useFont, useValue } from "@shopify/react-native-skia";
 import { MonoText } from "@/src/components/StyledText";
+import HeadphonesCarouselExample from "../SwipeHome/Swipe";
+import Swipe from "../SwipeHome/Swipe";
 
 const image = require("../../../assets/images/Saly-1.png");
 
@@ -137,69 +139,69 @@ export default function TabOneScreen({ navigation }) {
     );
   }
 
-  function Chart() {
-    const percentageComplete = 1;
-    const animationState = useValue(0);
-    const font = useFont(require("../../../assets/fonts/Roboto-Light.ttf"), 60);
-    const smallerFont = useFont(
-      require("../../../assets/fonts/Roboto-Light.ttf"),
-      25
-    );
-    const [animationKey, setAnimationKey] = useState(0); // State'i tanımla
+  // function Chart() {
+  //   const percentageComplete = 1;
+  //   const animationState = useValue(0);
+  //   const font = useFont(require("../../../assets/fonts/Roboto-Light.ttf"), 60);
+  //   const smallerFont = useFont(
+  //     require("../../../assets/fonts/Roboto-Light.ttf"),
+  //     25
+  //   );
+  //   const [animationKey, setAnimationKey] = useState(0); // State'i tanımla
 
-    useEffect(() => {
-      const animationChart = () => {
-        animationState.current = 0;
-        runTiming(animationState, 1, {
-          duration: 2700,
-          easing: Easing.inOut(Easing.cubic),
-        });
-      };
+  //   useEffect(() => {
+  //     const animationChart = () => {
+  //       animationState.current = 0;
+  //       runTiming(animationState, 1, {
+  //         duration: 2700,
+  //         easing: Easing.inOut(Easing.cubic),
+  //       });
+  //     };
 
-      animationChart();
+  //     animationChart();
 
-      return () => {
-        animationState.current = 1;
-      };
-    }, [navigation]);
+  //     return () => {
+  //       animationState.current = 1;
+  //     };
+  //   }, [navigation]);
 
-    const restartAnimation = () => {
-      setAnimationKey(animationKey + 1);
-    };
+  //   const restartAnimation = () => {
+  //     setAnimationKey(animationKey + 1);
+  //   };
 
-    if (!font || !smallerFont) {
-      return <View />;
-    }
-    return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <View style={styles.donutChartContainer}>
-          <DonutChart
-            key={animationKey} // Key'i state ile değiştir
-            radius={RADIUS}
-            strokeWidth={STROKE_WIDTH}
-            percentageComplete={animationState}
-            targetPercentage={percentageComplete}
-            font={font}
-            smallerFont={smallerFont}
-          />
-        </View>
-        <View
-          style={{
-            position: "absolute",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Text style={{ marginBottom: 2, fontSize: 24, fontWeight: "bold" }}>
-            TOPLAM KAZANÇ
-          </Text>
-          <Text style={{ marginTop: 2, fontSize: 28, fontWeight: "bold" }}>
-            <MonoText>75521</MonoText> Ø
-          </Text>
-        </View>
-      </View>
-    );
-  }
+  //   if (!font || !smallerFont) {
+  //     return <View />;
+  //   }
+  //   return (
+  //     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+  //       <View style={styles.donutChartContainer}>
+  //         <DonutChart
+  //           key={animationKey} // Key'i state ile değiştir
+  //           radius={RADIUS}
+  //           strokeWidth={STROKE_WIDTH}
+  //           percentageComplete={animationState}
+  //           targetPercentage={percentageComplete}
+  //           font={font}
+  //           smallerFont={smallerFont}
+  //         />
+  //       </View>
+  //       <View
+  //         style={{
+  //           position: "absolute",
+  //           alignItems: "center",
+  //           justifyContent: "center",
+  //         }}
+  //       >
+  //         <Text style={{ marginBottom: 2, fontSize: 24, fontWeight: "bold" }}>
+  //           TOPLAM KAZANÇ
+  //         </Text>
+  //         <Text style={{ marginTop: 2, fontSize: 28, fontWeight: "bold" }}>
+  //           <MonoText>75521</MonoText> Ø
+  //         </Text>
+  //       </View>
+  //     </View>
+  //   );
+  // }
 
   return (
     <View style={styles.container}>
@@ -211,7 +213,8 @@ export default function TabOneScreen({ navigation }) {
       </Text> */}
       <Header />
       <CategoryHeaderSection />
-      <Chart />
+      {/* <Chart /> */}
+      <Swipe />
     </View>
   );
 }
