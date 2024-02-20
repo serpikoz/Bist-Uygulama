@@ -43,10 +43,14 @@ function TabBarIcon(props: {
 }) {
   return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
 }
-const data = [
-  { name: "Slice 1", value: 30, color: "blue" },
-  { name: "Slice 2", value: 70, color: "green" },
-];
+
+const options = {
+  weekday: "long",
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+};
+const now = new Date().toLocaleDateString("tr-TR", options);
 
 export default function TabOneScreen({ navigation }) {
   const [viewMode, setViewMode] = React.useState("chart");
@@ -72,6 +76,7 @@ export default function TabOneScreen({ navigation }) {
             flexDirection: "row",
             marginTop: SIZES.padding,
             alignItems: "center",
+            top: 20,
           }}
         >
           <View
@@ -89,7 +94,7 @@ export default function TabOneScreen({ navigation }) {
 
           <View style={{ marginLeft: SIZES.padding }}>
             <Text style={{ color: "white", lineHeight: 20, fontSize: 16 }}>
-              18 Şubat 2024
+              {now}
             </Text>
             <Text style={{ color: COLORS.darkgray }}>Geçen Aydan %50 Kar </Text>
           </View>
@@ -110,31 +115,7 @@ export default function TabOneScreen({ navigation }) {
       >
         {/* Title */}
 
-        <View>
-          <Text style={{ color: COLORS.lightBlue, fontSize: 18 }}>
-            HİSSELER
-          </Text>
-          <Text style={{ color: COLORS.lightGray, fontSize: 14 }}>Toplam</Text>
-        </View>
-
         {/* Buttons */}
-
-        <View style={{ flexDirection: "row" }}>
-          <TouchableOpacity onPress={() => setViewMode("list")}>
-            <View
-              style={{
-                alignItems: "center",
-                justifyContent: "center",
-
-                height: 45,
-                width: 45,
-                borderRadius: 20,
-              }}
-            >
-              <TabBarIcon name="bars" color="#95A9B8" />
-            </View>
-          </TouchableOpacity>
-        </View>
       </View>
     );
   }

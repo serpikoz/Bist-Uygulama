@@ -21,8 +21,16 @@ import {
 import type { PagerViewOnPageScrollEventData } from "react-native-pager-view";
 import PagerView from "react-native-pager-view";
 import { DonutChart } from "../Charts/DonutCharts";
-import { runTiming, useFont, useValue } from "@shopify/react-native-skia";
+import {
+  ColorType,
+  center,
+  runTiming,
+  useFont,
+  useValue,
+} from "@shopify/react-native-skia";
 import { MonoText } from "@/src/components/StyledText";
+import { COLORS } from "@/src/constants";
+import Colors from "@/src/constants/Colors";
 
 const RADIUS = PixelRatio.roundToNearestPixel(130);
 const STROKE_WIDTH = 12;
@@ -34,7 +42,7 @@ const data = [
     heading: "Vibrant colors",
     description: "Four on-trend colorways to seamlessly suit your style.",
     key: "first",
-    color: "#9dcdfa",
+    color: "#db9efa",
   },
   {
     type: "THYAO",
@@ -67,7 +75,7 @@ const { width, height } = Dimensions.get("window");
 const LOGO_WIDTH = 220;
 const LOGO_HEIGHT = 40;
 const DOT_SIZE = 40;
-const TICKER_HEIGHT = 40;
+const TICKER_HEIGHT = 22;
 const CIRCLE_SIZE = width * 0.6;
 
 const Circle = ({
@@ -77,7 +85,7 @@ const Circle = ({
 }) => {
   return (
     <View style={[StyleSheet.absoluteFillObject, styles.circleContainer]}>
-      {data.map(({ color }, index) => {
+      {data.map(({ color, type }, index) => {
         const inputRange = [0, 0.5, 0.99];
         const inputRangeOpacity = [0, 0.5, 0.99];
         const scale = scrollOffsetAnimatedValue.interpolate({
@@ -274,7 +282,14 @@ function Chart() {
     return <View />;
   }
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+    <View
+      style={{
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 167,
+      }}
+    >
       <View style={styles.donutChartContainer}>
         <DonutChart
           key={animationKey} // Key'i state ile değiştir
@@ -293,12 +308,28 @@ function Chart() {
           justifyContent: "center",
         }}
       >
-        <Text style={{ marginBottom: 2, fontSize: 24, fontWeight: "bold" }}>
-          TOPLAM KAZANÇ
+        <Text
+          style={{
+            fontSize: 24,
+            fontWeight: "bold",
+            color: "darkgreen",
+            marginBottom: 8,
+          }}
+        >
+          KAZANÇ
         </Text>
-        <Text style={{ marginTop: 2, fontSize: 28, fontWeight: "bold" }}>
-          <MonoText>75521</MonoText> Ø
+        <Text
+          style={{
+            alignContent: "center",
+            fontSize: 28,
+            fontWeight: "bold",
+          }}
+        >
+          <MonoText style={{ alignContent: "center", alignItems: "center" }}>
+            2421Ø
+          </MonoText>
         </Text>
+        <Text style={{ top: 30, fontSize: 18 }}>← Kaydır →</Text>
       </View>
     </View>
   );
@@ -394,7 +425,7 @@ const styles = StyleSheet.create({
   pagination: {
     position: "absolute",
     right: 20,
-    bottom: 40,
+    bottom: 20,
     flexDirection: "row",
     height: DOT_SIZE,
   },
@@ -431,6 +462,7 @@ const styles = StyleSheet.create({
     lineHeight: TICKER_HEIGHT,
     textTransform: "uppercase",
     fontWeight: "800",
+    color: Colors.dark ? "#fff" : "#000",
   },
 
   circleContainer: {
@@ -442,6 +474,6 @@ const styles = StyleSheet.create({
     height: CIRCLE_SIZE,
     borderRadius: CIRCLE_SIZE / 2,
     position: "absolute",
-    top: "15%",
+    top: "13.4%",
   },
 });
