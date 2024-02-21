@@ -38,6 +38,7 @@ const STROKE_WIDTH = 12;
 const data = [
   {
     type: "Toplam",
+    profit: 546,
 
     heading: "Vibrant colors",
     description: "Four on-trend colorways to seamlessly suit your style.",
@@ -46,6 +47,7 @@ const data = [
   },
   {
     type: "THYAO",
+    profit: 800,
 
     heading: "Redefined sound",
     description: "A bold statement tuned to perfection.",
@@ -54,6 +56,7 @@ const data = [
   },
   {
     type: "BIMAS",
+    profit: 400,
 
     heading: "Great quality",
     description:
@@ -63,7 +66,7 @@ const data = [
   },
   {
     type: "IBM",
-
+    profit: 200,
     heading: "From Sweden",
     description:
       "The “Plattan” in Plattan headphones is Swedish for “the slab.”",
@@ -248,7 +251,7 @@ const Pagination = ({
   );
 };
 
-function Chart() {
+function Chart({ type }) {
   const percentageComplete = 1;
   const animationState = useValue(0);
   const font = useFont(require("../../../assets/fonts/Roboto-Light.ttf"), 60);
@@ -257,6 +260,15 @@ function Chart() {
     25
   );
   const [animationKey, setAnimationKey] = useState(0); // State'i tanımla
+  const [profit, setProfit] = useState(0);
+
+  useEffect(() => {
+    // Verilen 'type' değerine göre uygun 'profit' değerini bul
+    const selectedData = data.find((item) => item.type === type);
+    if (selectedData) {
+      setProfit(selectedData.profit);
+    }
+  }, [type]);
 
   useEffect(() => {
     const animationChart = () => {
@@ -326,7 +338,7 @@ function Chart() {
           }}
         >
           <MonoText style={{ alignContent: "center", alignItems: "center" }}>
-            2421Ø
+            {profit}Ø
           </MonoText>
         </Text>
         <Text style={{ top: 30, fontSize: 18 }}>← Kaydır →</Text>
@@ -340,11 +352,30 @@ const AnimatedPagerView = Animated.createAnimatedComponent(PagerView);
 export default function Swipe() {
   const scrollOffsetAnimatedValue = React.useRef(new Animated.Value(0)).current;
   const positionAnimatedValue = React.useRef(new Animated.Value(0)).current;
+  const [currentPage, setCurrentPage] = useState(0);
+  const [currentProfit, setCurrentProfit] = useState(data[currentPage].profit);
+  const [profitData, setProfitData] = useState(data.map((item) => item.profit));
+
+  useEffect(() => {
+    // currentPage değerine göre type'i belirle
+    const type = data[currentPage].type;
+    // Verilen 'type' değerine göre uygun 'profit' değerini bul ve güncelle
+    const selectedData = data.find((item) => item.type === type);
+    if (selectedData) {
+      const updatedProfitData = [...profitData];
+      updatedProfitData[currentPage] = selectedData.profit;
+      setProfitData(updatedProfitData);
+      setCurrentProfit(selectedData.profit);
+    }
+  }, [currentPage]);
+
+  // currentPage değerine göre type'i belirle
+  const type = data[currentPage].type;
 
   return (
     <View style={styles.container}>
       <Circle scrollOffsetAnimatedValue={scrollOffsetAnimatedValue} />
-      <Chart />
+      <Chart type={type} />
       <AnimatedPagerView
         initialPage={0}
         style={{ width: "100%", height: "100%" }}
@@ -364,6 +395,9 @@ export default function Swipe() {
             useNativeDriver: true,
           }
         )}
+        onPageSelected={(event) => {
+          setCurrentPage(event.nativeEvent.position);
+        }}
       >
         {data.map((item, index) => (
           <View collapsable={false} key={index}></View>

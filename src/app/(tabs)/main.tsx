@@ -96,7 +96,9 @@ export default function TabOneScreen({ navigation }) {
             <Text style={{ color: "white", lineHeight: 20, fontSize: 16 }}>
               {now}
             </Text>
-            <Text style={{ color: COLORS.darkgray }}>Geçen Aydan %50 Kar </Text>
+            <Text style={{ color: COLORS.darkgray, top: 5, fontSize: 15 }}>
+              Geçen Aydan %50 Kar <Text style={{ fontSize: 20 }}>⤳</Text>
+            </Text>
           </View>
         </View>
       </View>
