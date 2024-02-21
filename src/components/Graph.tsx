@@ -44,6 +44,8 @@ const Graph = ({ symbol }: { symbol: string }) => {
     setSelectedPoint(point);
   };
 
+  const reversedPoints = [...points].reverse();
+
   return (
     <View>
       <MonoText style={{ fontSize: 20, fontWeight: "bold", color: "#017560" }}>
@@ -55,7 +57,7 @@ const Graph = ({ symbol }: { symbol: string }) => {
 
       <LineGraph
         style={{ width: "100%", height: 300 }}
-        points={points}
+        points={reversedPoints}
         animated={true}
         color="#017560"
         gradientFillColors={["#0175605D", "#7476df00"]}
