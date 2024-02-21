@@ -1,11 +1,12 @@
 import { Text, View } from "./Themed";
-import { StyleSheet, Pressable, Alert } from "react-native";
+import { StyleSheet, Pressable, Alert, Touchable } from "react-native";
 import Colors from "../constants/Colors";
 import { AntDesign } from "@expo/vector-icons";
 import { MonoText } from "./StyledText";
 import { Link } from "expo-router";
 import { useMutation, gql } from "@apollo/client";
 import client from "../apollo/client";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const CHECK_FAVORITE_QUERY = gql`
   query CheckFavorite($symbol: String!, $user_id: String!) {
@@ -89,6 +90,20 @@ export default function StockListItem({ hisse }: StockListItem) {
         {/* {Right Container} */}
 
         <View style={{ alignItems: "flex-end" }}>
+          <View style={{ position: "absolute", right: 70, top: 10 }}>
+            <TouchableOpacity>
+              <View
+                style={{
+                  padding: 2,
+                  borderWidth: 2,
+                  borderColor: "blue",
+                  borderRadius: 4,
+                }}
+              >
+                <Text style={{ paddingHorizontal: 4 }}>AL</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
           <MonoText>{Number.parseFloat(hisse.close).toFixed(1)} ₺</MonoText>
           <MonoText style={{ color: change > 0 ? "green" : "red" }}>
             {change > 0 ? "+" : ""}

@@ -9,8 +9,8 @@ const image = require("../../../assets/images/Saly-10.png");
 const portfolioHisseler = [
   {
     id: "1",
-    name: "Sanal TL",
-    symbol: "TL",
+    name: "Sanal Ø ",
+    symbol: "Ø",
     amount: 200.75,
     valueTL: 200.75,
   },
@@ -93,7 +93,7 @@ export default function TabThreeScreen() {
 
             <View style={styles.balanceContainer}>
               <Text style={styles.label}>Bakiyem</Text>
-              <Text style={styles.balance}>200.75 ₺</Text>
+              <Text style={styles.balance}>200.75 Ø</Text>
             </View>
           </>
         )}
