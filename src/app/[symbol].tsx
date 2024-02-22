@@ -43,7 +43,7 @@ const HisseDetay = () => {
       <Graph symbol={hisse.symbol} />
       <View style={{ alignItems: "center" }}>
         <Text>Güncel Fiyat</Text>
-        <MonoText style={{ fontSize: 28 }}>{hisse.close.toFixed(1)}</MonoText>
+        <MonoText style={{ fontSize: 28 }}>{hisse.close?.toFixed(1)}</MonoText>
       </View>
 
       <View

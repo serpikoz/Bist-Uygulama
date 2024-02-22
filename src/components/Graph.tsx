@@ -3,7 +3,7 @@ import { View, Text } from "./Themed";
 import { LineGraph, GraphPoint } from "react-native-graph";
 import timeseries from "@/assets/data/timeseries.json";
 import { MonoText } from "./StyledText";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery, gql } from "@apollo/client";
 import { ActivityIndicator } from "react-native";
 
@@ -20,6 +20,7 @@ const query = gql`
 
 const Graph = ({ symbol }: { symbol: string }) => {
   const [selectedPoint, setSelectedPoint] = useState<GraphPoint>();
+  const [loadingGraph, setLoadingGraph] = useState(true);
 
   const { data, loading, error } = useQuery(query, {
     variables: {
@@ -28,11 +29,26 @@ const Graph = ({ symbol }: { symbol: string }) => {
     },
   });
 
-  if (loading) {
-    return <ActivityIndicator />;
+  useEffect(() => {
+    // data değiştiğinde çalışacak useEffect
+    if (data) {
+      setLoadingGraph(false); // Veri yüklendiyse loading durumunu false yap
+    }
+  }, [data]);
+
+  if (loadingGraph) {
+    return (
+      <View
+        style={{
+          flex: 1,
+        }}
+      >
+        <ActivityIndicator size="small" color="#0000ff" />
+      </View>
+    ); // loadingGraph true ise spinner göster
   }
   if (error) {
-    return <Text>Error</Text>;
+    return <Text>Error: {error.message}</Text>;
   }
 
   const points: GraphPoint[] = data.time_series.values.map((value) => ({
@@ -49,7 +65,7 @@ const Graph = ({ symbol }: { symbol: string }) => {
   return (
     <View>
       <MonoText style={{ fontSize: 20, fontWeight: "bold", color: "#017560" }}>
-        {selectedPoint?.value.toFixed(1)}₺
+        {selectedPoint?.value?.toFixed(1)}₺
       </MonoText>
       <Text style={{ color: "gray" }}>
         {selectedPoint?.date.toDateString()}
