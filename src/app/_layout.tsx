@@ -66,6 +66,10 @@ function RootLayoutNav() {
               name="modal"
               options={{ presentation: "modal", title: "Bilgilendirme" }}
             />
+            <Stack.Screen
+              name="StockExchange/ExchangeScreen"
+              options={{ presentation: "modal", title: "Alım/Satım" }}
+            />
           </Stack>
         </ThemeProvider>
       </ApolloProvider>

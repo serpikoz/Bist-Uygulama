@@ -1,11 +1,12 @@
 import { View, Text } from "@/src/components/Themed";
-import { Stack, useLocalSearchParams } from "expo-router";
+import { Link, Stack, useLocalSearchParams } from "expo-router";
 import React from "react";
 import StockListItem from "../components/StockListItem";
 import Graph from "../components/Graph";
 import { useQuery, gql } from "@apollo/client";
 import { ActivityIndicator, Pressable } from "react-native";
 import { MonoText } from "../components/StyledText";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const query = gql`
   query MyQuery($symbol: String) {
@@ -55,44 +56,54 @@ const HisseDetay = () => {
           justifyContent: "center",
         }}
       >
-        <Pressable
-          style={{
-            borderWidth: 3,
-            borderColor: "blue",
-            borderRadius: 4,
-
-            backgroundColor: "#03045e",
-          }}
+        <Link
+          href="/StockExchange/ExchangeScreen"
+          style={{ textDecorationLine: "none" }}
         >
-          <Text
+          <TouchableOpacity
             style={{
-              paddingHorizontal: 40,
-              paddingVertical: 10,
-              color: "#00b4d8",
+              borderWidth: 3,
+              borderColor: "blue",
+              borderRadius: 4,
+
+              backgroundColor: "#03045e",
             }}
           >
-            AL
-          </Text>
-        </Pressable>
-        <Pressable
-          style={{
-            borderWidth: 3,
-            borderColor: "#ef233c",
-            borderRadius: 4,
-
-            backgroundColor: "#c1121f",
-          }}
+            <Text
+              style={{
+                paddingHorizontal: 40,
+                paddingVertical: 10,
+                color: "#00b4d8",
+              }}
+            >
+              AL
+            </Text>
+          </TouchableOpacity>
+        </Link>
+        <Link
+          href="/StockExchange/ExchangeScreen"
+          style={{ textDecorationLine: "none" }}
         >
-          <Text
+          <TouchableOpacity
             style={{
-              paddingHorizontal: 40,
-              paddingVertical: 10,
-              color: "#e85d04",
+              borderWidth: 3,
+              borderColor: "#ef233c",
+              borderRadius: 4,
+
+              backgroundColor: "#c1121f",
             }}
           >
-            SAT
-          </Text>
-        </Pressable>
+            <Text
+              style={{
+                paddingHorizontal: 40,
+                paddingVertical: 10,
+                color: "#e85d04",
+              }}
+            >
+              SAT
+            </Text>
+          </TouchableOpacity>
+        </Link>
       </View>
     </View>
   );
