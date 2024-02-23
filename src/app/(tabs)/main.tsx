@@ -25,11 +25,10 @@ import Colors from "@/src/constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
 import iconSet from "@expo/vector-icons/build/FontAwesome5";
 import React from "react";
-import Animated, { Easing } from "react-native-reanimated";
-import { DonutChart } from "../Charts/DonutCharts";
+
 import { runTiming, useFont, useValue } from "@shopify/react-native-skia";
 import { MonoText } from "@/src/components/StyledText";
-import HeadphonesCarouselExample from "../SwipeHome/Swipe";
+
 import Swipe from "../SwipeHome/Swipe";
 
 const image = require("../../../assets/images/Saly-1.png");
@@ -65,10 +64,8 @@ export default function TabOneScreen({ navigation }) {
         }}
       >
         <View>
-          <Text style={{ color: "white", fontSize: 26 }}>Güncel Durum</Text>
-          <Text style={{ color: COLORS.darkgray, fontSize: 16, marginTop: 5 }}>
-            Özet
-          </Text>
+          <Text style={{ fontSize: 26 }}>Güncel Durum</Text>
+          <Text style={{ fontSize: 16, marginTop: 5 }}>Özet</Text>
         </View>
 
         <View
@@ -93,9 +90,7 @@ export default function TabOneScreen({ navigation }) {
           </View>
 
           <View style={{ marginLeft: SIZES.padding }}>
-            <Text style={{ color: "white", lineHeight: 20, fontSize: 16 }}>
-              {now}
-            </Text>
+            <Text style={{ lineHeight: 20, fontSize: 16 }}>{now}</Text>
             <Text style={{ color: COLORS.darkgray, top: 5, fontSize: 15 }}>
               Geçen Aydan %50 Kar <Text style={{ fontSize: 20 }}>⤳</Text>
             </Text>

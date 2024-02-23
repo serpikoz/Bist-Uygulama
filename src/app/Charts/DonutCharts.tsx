@@ -7,7 +7,9 @@ import {
 } from "@shopify/react-native-skia";
 import React, { FC } from "react";
 
-import { StyleSheet, View, Text } from "react-native";
+import { Text, View } from "@/src/components/Themed";
+
+import { StyleSheet } from "react-native";
 
 interface DonutChartProps {
   strokeWidth: number;
@@ -22,7 +24,7 @@ export const DonutChart: FC<DonutChartProps> = ({
   radius,
   percentageComplete,
   font,
-  smallerFont,
+
   targetPercentage,
 }) => {
   const innerRadius = radius - strokeWidth / 2;

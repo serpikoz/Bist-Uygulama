@@ -9,7 +9,6 @@ Link to example: https://github.com/catalinmiron/react-native-headphones-carouse
 import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
-  Text,
   View,
   Image,
   Dimensions,
@@ -31,6 +30,7 @@ import {
 import { MonoText } from "@/src/components/StyledText";
 import { COLORS } from "@/src/constants";
 import Colors from "@/src/constants/Colors";
+import { Text } from "@/src/components/Themed";
 
 const RADIUS = PixelRatio.roundToNearestPixel(130);
 const STROKE_WIDTH = 12;
@@ -341,7 +341,7 @@ function Chart({ type }) {
             {profit}Ø
           </MonoText>
         </Text>
-        <Text style={{ top: 30, fontSize: 18 }}>← Kaydır →</Text>
+        <Text style={{ top: 30, fontSize: 18, color: "gray" }}>← Kaydır →</Text>
       </View>
     </View>
   );
@@ -486,7 +486,7 @@ const styles = StyleSheet.create({
   },
   tickerContainer: {
     position: "absolute",
-    top: 40,
+    top: 38,
     left: 20,
     overflow: "hidden",
     height: TICKER_HEIGHT,
@@ -496,7 +496,6 @@ const styles = StyleSheet.create({
     lineHeight: TICKER_HEIGHT,
     textTransform: "uppercase",
     fontWeight: "800",
-    color: Colors.dark ? "#fff" : "#000",
   },
 
   circleContainer: {
