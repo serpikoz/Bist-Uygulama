@@ -7,6 +7,7 @@ import {
   Keyboard,
   TouchableOpacity,
   Touchable,
+  Pressable,
 } from "react-native";
 import { MonoText } from "@/src/components/StyledText";
 import { View, Text } from "@/src/components/Themed";
@@ -43,11 +44,7 @@ const ExchangeScreen = () => {
   }, [guruAdet, thyFiyat]);
 
   return (
-    <TouchableOpacity
-      style={styles.container}
-      activeOpacity={1}
-      onPress={Keyboard.dismiss}
-    >
+    <Pressable style={styles.container} onPress={Keyboard.dismiss}>
       <View style={styles.root}>
         <Text style={styles.title}>Hisse Al</Text>
         <View>
@@ -72,7 +69,7 @@ const ExchangeScreen = () => {
           </View>
           <Text style={{ fontSize: 32 }}>=</Text>
 
-          <TouchableOpacity style={styles.inputContainer} activeOpacity={1}>
+          <Pressable style={styles.inputContainer}>
             <TextInput
               placeholder="0"
               keyboardType="numeric"
@@ -81,7 +78,7 @@ const ExchangeScreen = () => {
               onChangeText={setGuruAdet}
             />
             <Text>GURU</Text>
-          </TouchableOpacity>
+          </Pressable>
         </View>
         <View
           style={{
@@ -95,6 +92,9 @@ const ExchangeScreen = () => {
         </View>
       </View>
       <View style={{ top: "auto", padding: 17, alignItems: "center" }}>
+        <Pressable style={styles.button}>
+          <Text style={styles.buttonText}>Emir Ver</Text>
+        </Pressable>
         <Text style={{ fontSize: 7, textAlign: "center" }}>
           <Text style={{ fontSize: 10, fontWeight: "bold" }}>* </Text>1 Ø (Guru)
           <Text style={{ fontWeight: "bold" }}>Sanal</Text> bir para
@@ -104,7 +104,7 @@ const ExchangeScreen = () => {
           </Text>
         </Text>
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 
@@ -117,7 +117,6 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
     alignItems: "center",
-    padding: 20,
   },
   title: {
     fontSize: 24,
@@ -157,5 +156,21 @@ const styles = StyleSheet.create({
   textInput: {
     flex: 1,
     color: "gray",
+  },
+  button: {
+    backgroundColor: "#00b4d8",
+    marginTop: "auto",
+    width: "100%",
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
+    flexDirection: "row",
+    marginBottom: 50,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });
