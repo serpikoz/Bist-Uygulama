@@ -6,6 +6,8 @@ const image = require("../../../assets/images/Saly-1.png");
 const google = require("../../../assets/google-button.png");
 
 const WelcomeScreen = () => {
+  const signInGoogle = () => {};
+
   return (
     <View style={{ flex: 1 }}>
       <View
@@ -16,8 +18,8 @@ const WelcomeScreen = () => {
         <Text style={styles.header2}>
           Size tanımlanmış olan 1000 Ø(=TL)* ile yatırımınıza başlayın
         </Text>
-        <View style={{ top: 50 }}>
-          <Pressable>
+        <View style={{ top: 110 }}>
+          <Pressable onPress={signInGoogle}>
             <Image style={styles.google} source={google} />
           </Pressable>
         </View>
@@ -44,7 +46,7 @@ export default WelcomeScreen;
 
 const styles = StyleSheet.create({
   image: {
-    height: "50%",
+    height: "40%",
     aspectRatio: 1,
     marginBottom: 10,
   },
@@ -66,5 +68,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
 
     marginBottom: 10,
+    resizeMode: "contain",
   },
 });

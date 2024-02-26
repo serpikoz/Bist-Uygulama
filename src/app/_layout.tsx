@@ -14,6 +14,10 @@ import { useColorScheme } from "../components/useColorScheme";
 import { ApolloProvider } from "@apollo/client";
 import client from "../apollo/client";
 
+import { Amplify } from "aws-amplify";
+import awsconfig from "../aws-exports";
+Amplify.configure(awsconfig);
+
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -21,7 +25,7 @@ export {
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: "(tabs)",
+  initialRouteName: "WelcomeScreen/WelcomeScreen",
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
