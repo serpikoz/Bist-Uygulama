@@ -31,8 +31,6 @@ import { MonoText } from "@/src/components/StyledText";
 
 import Swipe from "../SwipeHome/Swipe";
 
-const image = require("../../../assets/images/Saly-1.png");
-
 const RADIUS = PixelRatio.roundToNearestPixel(130);
 const STROKE_WIDTH = 12;
 
@@ -184,11 +182,7 @@ export default function TabOneScreen({ navigation }) {
   return (
     <View style={styles.container}>
       {/* **************** if kullanıcı giriş yapmadıysa  ************/}
-      {/* <Image style={styles.image} source={image} />
-      <Text style={styles.header1}>Borsa Guru'ya Hoşgeldiniz</Text>
-      <Text style={styles.header2}>
-        Size tanımlanmış olan 1000 TL ile yatırımınıza başlayın
-      </Text> */}
+
       <Header />
       <CategoryHeaderSection />
       {/* <Chart /> */}

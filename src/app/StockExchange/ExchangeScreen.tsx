@@ -88,21 +88,15 @@ const ExchangeScreen = () => {
             marginHorizontal: 10,
           }}
         >
-          <Text style={{ fontSize: 10 }}>1 ₺ (TL) =1 Ø (Guru) *</Text>
+          <MonoText style={{ fontSize: 9 }}>
+            1 ₺ (TL) <Text style={{ fontSize: 12 }}>=</Text> 1 Ø (Guru) *
+          </MonoText>
         </View>
       </View>
       <View style={{ top: "auto", padding: 17, alignItems: "center" }}>
         <Pressable style={styles.button}>
           <Text style={styles.buttonText}>Emir Ver</Text>
         </Pressable>
-        <Text style={{ fontSize: 7, textAlign: "center" }}>
-          <Text style={{ fontSize: 10, fontWeight: "bold" }}>* </Text>1 Ø (Guru)
-          <Text style={{ fontWeight: "bold" }}>Sanal</Text> bir para
-          olup,kullanılma amacı tamamen uygulamadaki simülasyon içindir.
-          <Text style={{ fontWeight: "bold" }}>
-            Herhangi bir değeri yoktur.
-          </Text>
-        </Text>
       </View>
     </Pressable>
   );
