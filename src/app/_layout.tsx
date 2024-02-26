@@ -16,6 +16,7 @@ import client from "../apollo/client";
 
 import { Amplify } from "aws-amplify";
 import awsconfig from "../aws-exports";
+import WelcomeScreen from "./WelcomeScreen/WelcomeScreen";
 Amplify.configure(awsconfig);
 
 export {
@@ -66,6 +67,7 @@ function RootLayoutNav() {
         >
           <Stack>
             <Stack.Screen
+              initialParams={WelcomeScreen}
               name="WelcomeScreen/WelcomeScreen"
               options={{ title: "Hoşgeldin", headerShown: false }}
             />

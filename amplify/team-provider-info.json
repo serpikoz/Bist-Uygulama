@@ -14,6 +14,9 @@
     "categories": {
       "auth": {
         "bistuygulamab53153ec": {}
+      },
+      "function": {
+        "bistuygulamab53153ecPostConfirmation": {}
       }
     }
   }
