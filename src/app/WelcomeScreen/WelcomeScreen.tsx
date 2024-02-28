@@ -4,10 +4,13 @@ import { Text, View } from "@/src/components/Themed";
 
 const image = require("../../../assets/images/Saly-1.png");
 const google = require("../../../assets/google-button.png");
+import { signInWithRedirect } from "aws-amplify/auth";
+import { Link } from "expo-router";
+import SignIn from "../Auth/SignIn";
+
+import SignUp from "../Auth/SignUp";
 
 const WelcomeScreen = () => {
-  const signInGoogle = () => {};
-
   return (
     <View style={{ flex: 1 }}>
       <View
@@ -19,9 +22,41 @@ const WelcomeScreen = () => {
           Size tanımlanmış olan 1000 Ø(=TL)* ile yatırımınıza başlayın
         </Text>
         <View style={{ top: 110 }}>
-          <Pressable onPress={signInGoogle}>
-            <Image style={styles.google} source={google} />
+          <Pressable>
+            <Link href={"/Auth/SignUp"}>
+              <View
+                style={{
+                  borderWidth: 1,
+                  borderColor: "gray",
+                  paddingVertical: 15,
+                  paddingHorizontal: 95,
+                  borderRadius: 5,
+                }}
+              >
+                <Text style={{ fontWeight: "bold", fontSize: 17 }}>
+                  Kayıt Ol
+                </Text>
+              </View>
+            </Link>
           </Pressable>
+
+          <View style={{ top: 10 }}>
+            <Pressable>
+              <Link href={"/Auth/SignIn"}>
+                <View
+                  style={{
+                    borderWidth: 1,
+                    borderColor: "gray",
+                    paddingVertical: 15,
+                    paddingHorizontal: 95,
+                    borderRadius: 5,
+                  }}
+                >
+                  <Text style={{ fontSize: 17 }}>Giriş Yap</Text>
+                </View>
+              </Link>
+            </Pressable>
+          </View>
         </View>
       </View>
 

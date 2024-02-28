@@ -9,14 +9,21 @@
       "UnauthRoleName": "amplify-bistuygulama-dev-160651-unauthRole",
       "StackName": "amplify-bistuygulama-dev-160651",
       "StackId": "arn:aws:cloudformation:us-east-1:266166786234:stack/amplify-bistuygulama-dev-160651/ea408d30-d4a7-11ee-bcb3-1283215a479f",
-      "AmplifyAppId": "d3c3045b12xrnh"
+      "AmplifyAppId": "d3c3045b12xrnh",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-bistuygulama-dev-160651-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
-      "auth": {
-        "bistuygulamab53153ec": {}
-      },
       "function": {
-        "bistuygulamab53153ecPostConfirmation": {}
+        "bistuygulamab53153ecPostConfirmation": {
+          "deploymentBucketName": "amplify-bistuygulama-dev-160651-deployment",
+          "s3Key": "amplify-builds/bistuygulamab53153ecPostConfirmation-43736f7a366a6a453554-build.zip"
+        }
+      },
+      "api": {
+        "bistuygulama": {}
+      },
+      "auth": {
+        "bistuygulama9f46fef3": {}
       }
     }
   }

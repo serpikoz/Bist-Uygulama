@@ -1,18 +1,26 @@
 {
-  "auth": {
-    "bistuygulamab53153ec": {
-      "customAuth": false,
-      "dependsOn": [
-        {
-          "attributes": [
-            "Arn",
-            "Name"
-          ],
-          "category": "function",
-          "resourceName": "bistuygulamab53153ecPostConfirmation",
-          "triggerProvider": "Cognito"
+  "api": {
+    "bistuygulama": {
+      "dependsOn": [],
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [],
+          "defaultAuthentication": {
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 7
+            },
+            "authenticationType": "API_KEY"
+          }
         }
-      ],
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync"
+    }
+  },
+  "auth": {
+    "bistuygulama9f46fef3": {
+      "customAuth": false,
+      "dependsOn": [],
       "frontendAuthConfig": {
         "mfaConfiguration": "OFF",
         "mfaTypes": [
@@ -40,6 +48,24 @@
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_bistuygulamab53153ecPostConfirmation_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "bistuygulamab53153ecPostConfirmation"
+        }
+      ]
+    },
+    "AMPLIFY_function_bistuygulamab53153ecPostConfirmation_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "bistuygulamab53153ecPostConfirmation"
+        }
+      ]
     }
   }
 }

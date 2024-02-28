@@ -98,6 +98,19 @@ const ExchangeScreen = () => {
           <Text style={styles.buttonText}>Emir Ver</Text>
         </Pressable>
       </View>
+      <Text
+        style={{
+          fontSize: 7,
+          textAlign: "center",
+          marginTop: "auto",
+          padding: 15,
+        }}
+      >
+        <Text style={{ fontSize: 10, fontWeight: "bold" }}>* </Text>1 Ø (Guru)
+        <Text style={{ fontWeight: "bold" }}>Sanal</Text> bir para
+        olup,kullanılma amacı tamamen uygulamadaki simülasyon içindir.
+        <Text style={{ fontWeight: "bold" }}>Herhangi bir değeri yoktur.</Text>
+      </Text>
     </Pressable>
   );
 };

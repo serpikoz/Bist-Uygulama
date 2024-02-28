@@ -14,9 +14,16 @@ import { useColorScheme } from "../components/useColorScheme";
 import { ApolloProvider } from "@apollo/client";
 import client from "../apollo/client";
 
+import {
+  withAuthenticator,
+  useAuthenticator,
+} from "@aws-amplify/ui-react-native";
+
 import { Amplify } from "aws-amplify";
 import awsconfig from "../aws-exports";
 import WelcomeScreen from "./WelcomeScreen/WelcomeScreen";
+import SignUp from "./Auth/SignUp";
+import SignIn from "./Auth/SignIn";
 Amplify.configure(awsconfig);
 
 export {
@@ -79,6 +86,17 @@ function RootLayoutNav() {
             <Stack.Screen
               name="StockExchange/ExchangeScreen"
               options={{ presentation: "modal", title: "Alım/Satım" }}
+            />
+
+            <Stack.Screen
+              initialParams={SignUp}
+              name="Auth/SignUp"
+              options={{ title: "Kayıt Ol", headerShown: false }}
+            />
+            <Stack.Screen
+              initialParams={SignIn}
+              name="Auth/SignIn"
+              options={{ title: "Giriş Yap", headerShown: false }}
             />
           </Stack>
         </ThemeProvider>
