@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { StyleSheet, Image, Pressable } from "react-native";
 import { Text, View } from "@/src/components/Themed";
-import { Stack } from "expo-router";
+import { Stack, useNavigation } from "expo-router";
+import { signOut } from "aws-amplify/auth";
+import { Auth } from "aws-amplify";
 
 const image = require("../../../assets/images/Saly-16.png");
 const image1 = require("../../../assets/images/Saly-17.png");
-
 export default function TabFourScreen() {
+  const navigation = useNavigation();
   const [user, setUser] = useState({
     id: "1",
     name: "Kadir",
@@ -14,8 +16,18 @@ export default function TabFourScreen() {
     netWorth: 123546,
   });
 
-  const signOut = () => {
-    // Burada çıkış işlemlerini gerçekleştir
+  const signOut = async () => {
+    try {
+      // Çıkış işlemi gerçekleştiriliyor...
+      // Başarılı çıkış sonrası yönlendirme yapılıyor
+
+      await signOut();
+
+      navigation.navigate("WelcomeScreen/WelcomeScreen");
+      console.log(user, "bAŞARILI");
+    } catch (error) {
+      console.log("Çıkış işleminde bir hata oluştu: ", error);
+    }
   };
 
   return (

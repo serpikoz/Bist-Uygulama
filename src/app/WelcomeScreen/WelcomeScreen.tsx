@@ -5,12 +5,13 @@ import { Text, View } from "@/src/components/Themed";
 const image = require("../../../assets/images/Saly-1.png");
 const google = require("../../../assets/google-button.png");
 import { signInWithRedirect } from "aws-amplify/auth";
-import { Link } from "expo-router";
-import SignIn from "../Auth/SignIn";
+import { Link, useNavigation } from "expo-router";
+import SignIn from "../Auth/SignInScreen";
 
-import SignUp from "../Auth/SignUp";
-
+import SignUp from "../Auth/SignUpScreen";
 const WelcomeScreen = () => {
+  const navigation = useNavigation();
+
   return (
     <View style={{ flex: 1 }}>
       <View
@@ -23,7 +24,7 @@ const WelcomeScreen = () => {
         </Text>
         <View style={{ top: 110 }}>
           <Pressable>
-            <Link href={"/Auth/SignUp"}>
+            <Link href="/Auth/SignUpScreen">
               <View
                 style={{
                   borderWidth: 1,
@@ -42,7 +43,7 @@ const WelcomeScreen = () => {
 
           <View style={{ top: 10 }}>
             <Pressable>
-              <Link href={"/Auth/SignIn"}>
+              <Link href="/Auth/SignInScreen">
                 <View
                   style={{
                     borderWidth: 1,

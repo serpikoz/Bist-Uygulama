@@ -3,7 +3,7 @@ import React from "react";
 import { Text, View } from "@/src/components/Themed";
 import { SignUpInput, signUp } from "aws-amplify/auth";
 import { confirmSignUp, type ConfirmSignUpInput } from "aws-amplify/auth";
-import { Link } from "expo-router";
+import { Link, useNavigation } from "expo-router";
 import { Authenticator } from "@aws-amplify/ui-react-native";
 
 type SignUpParameters = {
@@ -19,8 +19,9 @@ async function handleSignUp({
   email,
   phone_number,
 }: SignUpParameters) {
+  const navigation = useNavigation();
   try {
-    const { isSignUpComplete, userId, nextStep } = await signUp({
+    const { isSignUpComplete, userId, nextStep, navigation } = await signUp({
       username,
       password,
       options: {
@@ -33,10 +34,11 @@ async function handleSignUp({
       },
     });
     console.log(userId);
+
     if (isSignUpComplete) {
       // Kayıt başarılı oldu, kullanıcıyı istenilen sayfaya yönlendir
       // Örneğin, tabs/main sayfasına yönlendir
-      <Link href={"/main"} />; // 'Tabs' yerine kendi sayfa isminizi kullanın
+      navigation.navigate("TabOneScreen"); // 'Tabs' yerine kendi sayfa isminizi kullanın
     }
 
     console.log(userId);
@@ -45,21 +47,7 @@ async function handleSignUp({
   }
 }
 
-async function handleSignUpConfirmation({
-  username,
-  confirmationCode,
-}: ConfirmSignUpInput) {
-  try {
-    const { isSignUpComplete, nextStep } = await confirmSignUp({
-      username,
-      confirmationCode,
-    });
-  } catch (error) {
-    console.error("An error occurred during sign up:", error);
-  }
-}
-
-const SignUp = () => {
+const SignUpScreen = () => {
   return (
     <Authenticator.Provider>
       <Authenticator
@@ -82,6 +70,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
-
-const styles = StyleSheet.create({});
+export default SignUpScreen;

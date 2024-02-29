@@ -50,6 +50,8 @@ amplify/backend/amplify-meta.json
 amplify/backend/.temp
 build/
 dist/
+android/
+ios/
 node_modules/
 aws-exports.js
 awsconfiguration.json

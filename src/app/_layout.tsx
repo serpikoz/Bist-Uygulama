@@ -13,17 +13,22 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useColorScheme } from "../components/useColorScheme";
 import { ApolloProvider } from "@apollo/client";
 import client from "../apollo/client";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import {
   withAuthenticator,
   useAuthenticator,
+  Authenticator,
 } from "@aws-amplify/ui-react-native";
 
 import { Amplify } from "aws-amplify";
 import awsconfig from "../aws-exports";
 import WelcomeScreen from "./WelcomeScreen/WelcomeScreen";
-import SignUp from "./Auth/SignUp";
-import SignIn from "./Auth/SignIn";
+import SignUpScreen from "./Auth/SignUpScreen";
+import SignInScreen from "./Auth/SignInScreen";
+import { signIn, signOut } from "aws-amplify/auth";
+
 Amplify.configure(awsconfig);
 
 export {
@@ -39,7 +44,7 @@ export const unstable_settings = {
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
+function RootLayout() {
   const [loaded, error] = useFonts({
     SpaceMono: require("../../assets/fonts/SpaceMono-Regular.ttf"),
     ...FontAwesome.font,
@@ -60,10 +65,15 @@ export default function RootLayout() {
     return null;
   }
 
-  return <RootLayoutNav />;
+  return;
+  <Authenticator.Provider>
+    <Authenticator>
+      <RootLayoutNav />
+    </Authenticator>
+  </Authenticator.Provider>;
 }
 
-function RootLayoutNav() {
+export default function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
@@ -73,30 +83,37 @@ function RootLayoutNav() {
           value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
         >
           <Stack>
+            // Display only if user is authenticated
             <Stack.Screen
-              initialParams={WelcomeScreen}
-              name="WelcomeScreen/WelcomeScreen"
-              options={{ title: "Hoşgeldin", headerShown: false }}
+              name="(tabs)"
+              options={{ headerShown: false, headerBackVisible: false }}
             />
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
             <Stack.Screen
               name="modal"
               options={{ presentation: "modal", title: "Bilgilendirme" }}
             />
             <Stack.Screen
               name="StockExchange/ExchangeScreen"
-              options={{ presentation: "modal", title: "Alım/Satım" }}
-            />
-
-            <Stack.Screen
-              initialParams={SignUp}
-              name="Auth/SignUp"
-              options={{ title: "Kayıt Ol", headerShown: false }}
+              options={{
+                presentation: "modal",
+                title: "Alım/Satım",
+                headerShown: false,
+              }}
             />
             <Stack.Screen
-              initialParams={SignIn}
-              name="Auth/SignIn"
+              initialParams={WelcomeScreen}
+              name="WelcomeScreen/WelcomeScreen"
+              options={{ title: "Hoşgeldin", headerShown: false }}
+            />
+            <Stack.Screen
+              initialParams={SignInScreen}
+              name="Auth/SignInScreen"
               options={{ title: "Giriş Yap", headerShown: false }}
+            />
+            <Stack.Screen
+              initialParams={SignUpScreen}
+              name="Auth/SignUpScreen"
+              options={{ title: "Kayıt Ol", headerShown: false }}
             />
           </Stack>
         </ThemeProvider>

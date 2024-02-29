@@ -1,11 +1,3 @@
-import { StyleSheet } from "react-native";
-import React from "react";
-
-import { Authenticator } from "@aws-amplify/ui-react-native";
-
-import { signUp, SignUpInput } from "aws-amplify/auth";
-import { confirmSignUp, type ConfirmSignUpInput } from "aws-amplify/auth";
-
 import { I18n } from "aws-amplify/utils";
 import { translations } from "@aws-amplify/ui";
 import { Link } from "expo-router";
@@ -92,81 +84,99 @@ I18n.putVocabularies({
   },
 });
 
-type SignUpParameters = {
-  username: string;
-  password: string;
-  email: string;
-  phone_number: string;
-};
+import {
+  Keyboard,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  TextInput,
+  Touchable,
+  TouchableOpacity,
+} from "react-native";
+import React, { useState } from "react";
+import { Text, View } from "@/src/components/Themed";
+import { signIn } from "aws-amplify/auth";
 
-async function handleSignUp({
-  username,
-  password,
-  email,
-  phone_number,
-}: SignUpParameters) {
-  try {
-    const { isSignUpComplete, userId, nextStep } = await signUp({
-      username,
-      password,
-      options: {
-        userAttributes: {
-          email,
-          phone_number, // E.164 number convention
-        },
-        // optional
-        autoSignIn: true, // or SignInOptions e.g { authFlowType: "USER_SRP_AUTH" }
-      },
-    });
-    if (isSignUpComplete) {
-      // Kayıt başarılı oldu, kullanıcıyı istenilen sayfaya yönlendir
-      // Örneğin, tabs/main sayfasına yönlendir
-      <Link href={"/main"} />; // 'Tabs' yerine kendi sayfa isminizi kullanın
+const SignInScreen = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSignIn = async () => {
+    setError("");
+    // Burada giriş işlemlerini gerçekleştirebilirsiniz.
+
+    try {
+      const { isSignedIn } = await signIn({
+        username: email,
+        password,
+      });
+      console.log(isSignedIn);
+    } catch (e) {
+      setError(e.message);
     }
+  };
 
-    console.log(userId);
-  } catch (error) {
-    console.log("error signing up:", error);
-  }
-}
-
-async function handleSignUpConfirmation({
-  username,
-  confirmationCode,
-}: ConfirmSignUpInput) {
-  try {
-    const { isSignUpComplete, nextStep } = await confirmSignUp({
-      username,
-      confirmationCode,
-    });
-  } catch (error) {
-    console.log("error confirming sign up", error);
-  }
-}
-
-const SignIn = () => {
   return (
-    <Authenticator.Provider>
-      <Authenticator
-        services={{
-          handleSignUp: ({ username, password, options }: SignUpInput) =>
-            signUp({
-              username: username.toLowerCase(),
-              password,
-              options: {
-                ...options,
-                userAttributes: {
-                  ...options?.userAttributes,
-                  email: options?.userAttributes?.email?.toLowerCase(),
-                },
-              },
-            }),
-        }}
-      ></Authenticator>
-    </Authenticator.Provider>
+    <Pressable style={{ flex: 1 }} onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <Text style={styles.title}>Giriş Yap</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="E-mail"
+          onChangeText={setEmail}
+          value={email}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Şifre"
+          onChangeText={(text) => setPassword(text)}
+          value={password}
+          secureTextEntry
+        />
+        <Pressable style={styles.button} onPress={handleSignIn}>
+          <Text style={styles.buttonText}>Giriş Yap</Text>
+        </Pressable>
+        {error && <Text style={{ color: "red" }}>{error}</Text>}
+      </View>
+    </Pressable>
   );
 };
 
-export default SignIn;
+export default SignInScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+  },
+  title: {
+    fontSize: 24,
+    marginBottom: 20,
+  },
+  input: {
+    width: "100%",
+    height: 40,
+    borderColor: "gainsboro",
+    borderWidth: 1,
+    color: "gray",
+
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    marginBottom: 10,
+  },
+  button: {
+    width: "100%",
+    height: 40,
+    backgroundColor: "blue",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 16,
+  },
+});
