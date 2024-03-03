@@ -3,7 +3,6 @@ import { StyleSheet, Image, Pressable } from "react-native";
 import { Text, View } from "@/src/components/Themed";
 import { Stack, useNavigation } from "expo-router";
 import { signOut } from "aws-amplify/auth";
-import { Auth } from "aws-amplify";
 
 const image = require("../../../assets/images/Saly-16.png");
 const image1 = require("../../../assets/images/Saly-17.png");
@@ -23,7 +22,6 @@ export default function TabFourScreen() {
 
       await signOut();
 
-      navigation.navigate("WelcomeScreen/WelcomeScreen");
       console.log(user, "bAŞARILI");
     } catch (error) {
       console.log("Çıkış işleminde bir hata oluştu: ", error);
